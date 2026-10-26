@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9th Grade ELA: Narrative Revision Workshop</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Canvas-friendly Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        canvasBg: '#f8fafc',
+                        brandBlue: '#2563eb',
+                        brandPurple: '#7c3aed',
+                        brandTeal: '#0d9488',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar & Canvas iframe compatibility tweaks */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .tab-btn.active {
+            border-bottom-color: #2563eb;
+            color: #2563eb;
+            font-weight: 600;
+            background-color: #eff6ff;
+        }
+        .accordion-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="p-2 sm:p-6 max-w-5xl mx-auto">
+
+    <!-- Canvas Header Banner -->
+    <header class="bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 text-white p-6 rounded-2xl shadow-lg mb-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 text-blue-200 text-sm font-semibold tracking-wide uppercase mb-1">
+                    <span class="bg-blue-800/80 px-3 py-1 rounded-full border border-blue-400/30">9th Grade ELA Workshop</span>
+                    <span>•</span>
+                    <span>Standard 9-10.W.3</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Revising Your Narrative Draft</h1>
+                <p class="text-blue-100 text-sm mt-1">Transforming good drafts into vivid stories through Sensory Details & Dialogue.</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md px-4 py-3 rounded-xl border border-white/20 text-center min-w-[140px]">
+                <span class="block text-xs uppercase tracking-wider text-blue-200 font-medium">Estimated Time</span>
+                <span class="text-xl font-bold text-white"><i class="far me-1 fa-clock"></i> 45-60 Min</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs (Chunked Learning) -->
+    <nav class="flex flex-wrap bg-white rounded-xl shadow-sm border border-slate-200 p-1 mb-6 gap-1" id="tabNav">
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn active flex-1 min-w-[120px] py-3 px-4 rounded-lg text-sm font-medium text-slate-600 hover:text-blue-600 transition flex items-center justify-center gap-2">
+            <i class="fas fa-compass"></i> <span>Overview</span>
+        </button>
+        <button onclick="switchTab('chunk1')" id="tab-chunk1" class="tab-btn flex-1 min-w-[120px] py-3 px-4 rounded-lg text-sm font-medium text-slate-600 hover:text-blue-600 transition flex items-center justify-center gap-2">
+            <i class="fas fa-eye"></i> <span>Chunk 1: Show vs. Tell</span>
+        </button>
+        <button onclick="switchTab('chunk2')" id="tab-chunk2" class="tab-btn flex-1 min-w-[120px] py-3 px-4 rounded-lg text-sm font-medium text-slate-600 hover:text-blue-600 transition flex items-center justify-center gap-2">
+            <i class="fas fa-comments"></i> <span>Chunk 2: Dialogue Lab</span>
+        </button>
+        <button onclick="switchTab('chunk3')" id="tab-chunk3" class="tab-btn flex-1 min-w-[120px] py-3 px-4 rounded-lg text-sm font-medium text-slate-600 hover:text-blue-600 transition flex items-center justify-center gap-2">
+            <i class="fas fa-pen-to-square"></i> <span>Chunk 3: Revision Studio</span>
+        </button>
+        <button onclick="switchTab('submit')" id="tab-submit" class="tab-btn flex-1 min-w-[120px] py-3 px-4 rounded-lg text-sm font-medium text-slate-600 hover:text-blue-600 transition flex items-center justify-center gap-2">
+            <i class="fas fa-paper-plane"></i> <span>Submit</span>
+        </button>
+    </nav>
+
+    <!-- TAB 0: OVERVIEW -->
+    <div id="content-overview" class="tab-content space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Learning Objective Card -->
+            <div class="md:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+                    <div class="p-2.5 bg-blue-100 text-blue-600 rounded-lg">
+                        <i class="fas fa-bullseye text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Learning Objective</h2>
+                        <p class="text-xs text-slate-500">What you will accomplish today</p>
+                    </div>
+                </div>
+                <p class="text-slate-700 leading-relaxed font-medium">
+                    I will re-read my narrative story and improve its quality by adding realistic dialogue, precise punctuation, and vivid sensory language (showing instead of telling).
+                </p>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-2">
+                    <div class="font-semibold text-slate-700 flex items-center gap-2">
+                        <i class="fas fa-scroll text-indigo-500"></i> Standard Alignment: Standard 9-10.W.3
+                    </div>
+                    <p class="italic">"Write narrative texts to develop real or imagined experiences or events using effective technique, well-structured event sequences, well-chosen details, and provide a resolution that connects to what is experienced, observed, or resolved."</p>
+                </div>
+            </div>
+
+            <!-- Pre-Flight Checklist -->
+            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-100 shadow-sm space-y-4">
+                <h3 class="font-bold text-indigo-900 flex items-center gap-2">
+                    <i class="fas fa-list-check text-indigo-600"></i> Readiness Checklist
+                </h3>
+                <ul class="space-y-3 text-sm text-indigo-950">
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" id="check1" class="mt-1 rounded text-indigo-600 focus:ring-indigo-500">
+                        <label for="check1" class="cursor-pointer">I have my narrative draft open in Google Docs or Word.</label>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" id="check2" class="mt-1 rounded text-indigo-600 focus:ring-indigo-500">
+                        <label for="check2" class="cursor-pointer">I am ready to edit my draft as I complete each chunk.</label>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" id="check3" class="mt-1 rounded text-indigo-600 focus:ring-indigo-500">
+                        <label for="check3" class="cursor-pointer">I understand that revision is about making writing <em>stronger</em>, not just fixing typos.</label>
+                    </li>
+                </ul>
+                <button onclick="switchTab('chunk1')" class="w-full mt-2 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-sm">
+                    Start Chunk 1 <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: CHUNK 1 - SHOW VS TELL -->
+    <div id="content-chunk1" class="tab-content hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-teal-100 text-teal-600 rounded-lg">
+                        <i class="fas fa-eye text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-teal-600 uppercase tracking-wide">Chunk 1 of 3</span>
+                        <h2 class="text-xl font-bold text-slate-800">The Power of Sensory & Descriptive Language</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept Concept Callout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl">
+                    <h3 class="font-bold text-red-800 text-sm uppercase tracking-wide flex items-center gap-2">
+                        <i class="fas fa-xmark-circle"></i> Telling (Weak)
+                    </h3>
+                    <p class="text-sm text-red-900 mt-1">Tells the reader facts directly. Uses summary statements and simple adjectives. Leaves no room for imagination.</p>
+                    <p class="text-xs text-red-700 italic mt-2">Example: "He was very nervous."</p>
+                </div>
+                <div class="p-4 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-xl">
+                    <h3 class="font-bold text-emerald-800 text-sm uppercase tracking-wide flex items-center gap-2">
+                        <i class="fas fa-check-circle"></i> Showing (Strong)
+                    </h3>
+                    <p class="text-sm text-emerald-900 mt-1">Uses sensory details (sight, sound, touch, smell, taste) and physical actions to paint a picture.</p>
+                    <p class="text-xs text-emerald-700 italic mt-2">Example: "Sweat dripped down his collar as he tapped his foot violently against the floor."</p>
+                </div>
+            </div>
+
+            <!-- Interactive Toggle Transformation Practice -->
+            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4">
+                <h3 class="font-bold text-slate-800 text-md flex items-center gap-2">
+                    <i class="fas fa-wand-magic-sparkles text-purple-600"></i> Interactive Practice: Click to Transform "Telling" into "Showing"
+                </h3>
+
+                <!-- Practice Item 1 -->
+                <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-slate-500 uppercase">Draft Sentence 1</span>
+                        <button onclick="toggleShow('show1', this)" class="px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 font-semibold text-xs rounded-full transition">
+                            <i class="fas fa-sparkles"></i> Reveal "Showing" Revision
+                        </button>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800">"The cafeteria was extremely loud and chaotic."</p>
+                    <div id="show1" class="hidden mt-3 p-3 bg-purple-50 border border-purple-200 rounded-md text-sm text-purple-900">
+                        <strong><i class="fas fa-lightbulb text-purple-600 me-1"></i> Sensory Revision:</strong> "Plastic trays slammed onto laminate tables as hundreds of shouting voices echoed off the tiled walls, drowning out the whistle of the microwave."
+                    </div>
+                </div>
+
+                <!-- Practice Item 2 -->
+                <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-slate-500 uppercase">Draft Sentence 2</span>
+                        <button onclick="toggleShow('show2', this)" class="px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 font-semibold text-xs rounded-full transition">
+                            <i class="fas fa-sparkles"></i> Reveal "Showing" Revision
+                        </button>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800">"She was freezing while waiting for the bus."</p>
+                    <div id="show2" class="hidden mt-3 p-3 bg-purple-50 border border-purple-200 rounded-md text-sm text-purple-900">
+                        <strong><i class="fas fa-lightbulb text-purple-600 me-1"></i> Sensory Revision:</strong> "She pulled her thin jacket tight around her chest, teeth chattering uncontrollably as the icy winter wind bit through her denim jeans."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Quiz Check -->
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 space-y-3">
+                <h4 class="font-bold text-blue-900 text-sm"><i class="fas fa-question-circle me-1"></i> Quick Knowledge Check</h4>
+                <p class="text-sm text-blue-800">Which sentence relies most effectively on <strong>sensory details</strong>?</p>
+                <div class="space-y-2">
+                    <button onclick="checkQuiz1(this, false)" class="quiz-btn w-full text-left p-3 bg-white rounded-lg border border-blue-200 hover:bg-blue-100 text-sm font-medium text-slate-700 transition">
+                        A) The haunted house was terrifying and gave us a bad feeling.
+                    </button>
+                    <button onclick="checkQuiz1(this, true)" class="quiz-btn w-full text-left p-3 bg-white rounded-lg border border-blue-200 hover:bg-blue-100 text-sm font-medium text-slate-700 transition">
+                        B) The rotting floorboards groaned beneath my boots as the sweet smell of mildew filled the damp hallway.
+                    </button>
+                    <button onclick="checkQuiz1(this, false)" class="quiz-btn w-full text-left p-3 bg-white rounded-lg border border-blue-200 hover:bg-blue-100 text-sm font-medium text-slate-700 transition">
+                        C) It was a really dark and mysterious night in the neighborhood.
+                    </button>
+                </div>
+                <div id="quiz1-feedback" class="hidden text-xs font-bold mt-2"></div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button onclick="switchTab('chunk2')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition text-sm flex items-center gap-2">
+                    Next: Chunk 2 (Dialogue) <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: CHUNK 2 - DIALOGUE LAB -->
+    <div id="content-chunk2" class="tab-content hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-purple-100 text-purple-600 rounded-lg">
+                        <i class="fas fa-comments text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-wide">Chunk 2 of 3</span>
+                        <h2 class="text-xl font-bold text-slate-800">Crafting & Formatting Realistic Dialogue</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dialogue Golden Rules -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <div class="text-purple-600 font-bold text-sm"><i class="fas fa-quote-left me-1"></i> Rule 1: Quotation Marks</div>
+                    <p class="text-xs text-slate-600">Enclose exact words in quotation marks. Place commas and periods <strong>inside</strong> the quotation marks.</p>
+                </div>
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <div class="text-purple-600 font-bold text-sm"><i class="fas fa-paragraph me-1"></i> Rule 2: New Speaker, New Paragraph</div>
+                    <p class="text-xs text-slate-600">Every single time a different person starts speaking, indent and start a brand new paragraph.</p>
+                </div>
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                    <div class="text-purple-600 font-bold text-sm"><i class="fas fa-user-ninja me-1"></i> Rule 3: Speaker Tags + Action</div>
+                    <p class="text-xs text-slate-600">Combine speech with character action tags instead of relying solely on "he said / she said".</p>
+                </div>
+            </div>
+
+            <!-- Interactive Dialogue Fixer -->
+            <div class="border border-purple-200 bg-purple-50/50 rounded-xl p-5 space-y-4">
+                <h3 class="font-bold text-slate-800 text-md flex items-center gap-2">
+                    <i class="fas fa-wrench text-purple-600"></i> Interactive Fixer: Dialogue Punctuation Test
+                </h3>
+                <p class="text-xs text-slate-600">Select the correctly formatted dialogue option below:</p>
+
+                <div class="space-y-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <p class="text-xs font-bold text-slate-500 uppercase">Scenario: Two friends discussing a secret project.</p>
+                    
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-3 p-3 border rounded-lg hover:bg-slate-50 cursor-pointer text-sm">
+                            <input type="radio" name="dialogueQuiz" value="A" class="mt-1 text-purple-600">
+                            <div>
+                                <span>"I can't believe you did that", whispered Maya. Marcus replied "it wasn't my fault".</span>
+                                <span class="block text-xs text-red-500 mt-1 hidden" id="diag-err1">Incorrect: Comma outside quotes, missing capitalization, and both speakers crammed into one line.</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start gap-3 p-3 border rounded-lg hover:bg-slate-50 cursor-pointer text-sm">
+                            <input type="radio" name="dialogueQuiz" value="B" class="mt-1 text-purple-600">
+                            <div>
+                                <span>"I can't believe you did that," whispered Maya.<br><br>"It wasn't my fault," Marcus replied, shielding his paper.</span>
+                                <span class="block text-xs text-emerald-600 font-bold mt-1 hidden" id="diag-corr">Correct! Quotes correctly enclosed punctuation, and the second speaker has a new paragraph with action.</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button onclick="checkDialogueQuiz()" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-xs rounded-lg transition">
+                        Verify Answer
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex justify-between pt-2">
+                <button onclick="switchTab('chunk1')" class="px-5 py-2.5 border border-slate-300 hover:bg-slate-100 font-semibold rounded-xl transition text-sm">
+                    <i class="fas fa-arrow-left text-xs me-1"></i> Back to Chunk 1
+                </button>
+                <button onclick="switchTab('chunk3')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition text-sm flex items-center gap-2">
+                    Next: Chunk 3 (Revision Studio) <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: CHUNK 3 - GUIDED REVISION STUDIO -->
+    <div id="content-chunk3" class="tab-content hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-blue-100 text-blue-600 rounded-lg">
+                        <i class="fas fa-pen-to-square text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wide">Chunk 3 of 3</span>
+                        <h2 class="text-xl font-bold text-slate-800">Guided Self-Revision Studio</h2>
+                    </div>
+                </div>
+                <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">
+                    Apply to your story
+                </span>
+            </div>
+
+            <p class="text-sm text-slate-600">
+                Select one paragraph from your current story draft that feels "flat" or lacks punch. Paste it below and perform a live revision using sensory language and dialogue!
+            </p>
+
+            <!-- Interactive Revision Form -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Original Text Area -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide">
+                        <i class="fas fa-file-lines text-slate-400 me-1"></i> Original Paragraph (Before)
+                    </label>
+                    <textarea id="originalText" rows="6" class="w-full p-3 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Paste your unedited story paragraph here..."></textarea>
+                    <p class="text-xs text-slate-400">Identify telling words, plain nouns, or missing speech.</p>
+                </div>
+
+                <!-- Revised Text Area -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-blue-700 uppercase tracking-wide flex items-center justify-between">
+                        <span><i class="fas fa-wand-magic-sparkles text-blue-500 me-1"></i> Revised Paragraph (After)</span>
+                        <span class="text-emerald-600 font-normal text-[11px]"><i class="fas fa-check"></i> Live Workspace</span>
+                    </label>
+                    <textarea id="revisedText" rows="6" class="w-full p-3 border border-blue-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-blue-50/20" placeholder="Rewrite the paragraph here: Add sensory details (sight, sound, touch) and punctuated dialogue..."></textarea>
+                    <p class="text-xs text-blue-600">Make sure to add dialogue tags and vivid verbs!</p>
+                </div>
+            </div>
+
+            <!-- Sensory Detail Tracker Checkboxes -->
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wide">Sensory Audit: Which senses did you add to your revision?</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs">
+                    <label class="flex items-center gap-2 bg-white p-2 rounded border border-slate-200 cursor-pointer">
+                        <input type="checkbox" class="text-blue-600 rounded"> 👁️ Sight
+                    </label>
+                    <label class="flex items-center gap-2 bg-white p-2 rounded border border-slate-200 cursor-pointer">
+                        <input type="checkbox" class="text-blue-600 rounded"> 👂 Sound
+                    </label>
+                    <label class="flex items-center gap-2 bg-white p-2 rounded border border-slate-200 cursor-pointer">
+                        <input type="checkbox" class="text-blue-600 rounded"> ✋ Touch/Texture
+                    </label>
+                    <label class="flex items-center gap-2 bg-white p-2 rounded border border-slate-200 cursor-pointer">
+                        <input type="checkbox" class="text-blue-600 rounded"> 👃 Smell
+                    </label>
+                    <label class="flex items-center gap-2 bg-white p-2 rounded border border-slate-200 cursor-pointer">
+                        <input type="checkbox" class="text-blue-600 rounded"> 👅 Taste
+                    </label>
+                </div>
+            </div>
+
+            <!-- Save / Copy Progress Button -->
+            <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="flex items-center gap-2 text-emerald-800 text-xs">
+                    <i class="fas fa-circle-check text-emerald-600 text-base"></i>
+                    <span>Once satisfied with your revision, copy your work back into your master draft document!</span>
+                </div>
+                <button onclick="copyRevision()" class="w-full sm:w-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-lg transition shrink-0 flex items-center justify-center gap-1.5">
+                    <i class="fas fa-copy"></i> Copy Revised Paragraph
+                </button>
+            </div>
+
+            <div class="flex justify-between pt-2">
+                <button onclick="switchTab('chunk2')" class="px-5 py-2.5 border border-slate-300 hover:bg-slate-100 font-semibold rounded-xl transition text-sm">
+                    <i class="fas fa-arrow-left text-xs me-1"></i> Back to Chunk 2
+                </button>
+                <button onclick="switchTab('submit')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition text-sm flex items-center gap-2">
+                    Final Canvas Checklist <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: CANVAS SUBMISSION CHECKLIST -->
+    <div id="content-submit" class="tab-content hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                <div class="p-2.5 bg-emerald-100 text-emerald-600 rounded-lg">
+                    <i class="fas fa-paper-plane text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800">Final Canvas Submission Ready</h2>
+                    <p class="text-xs text-slate-500">Ensure all criteria are met prior to clicking Submit in Canvas</p>
+                </div>
+            </div>
+
+            <!-- Interactive Rubric Checklist -->
+            <div class="space-y-3">
+                <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wide">Self-Assessment Checklist</h3>
+                
+                <div class="space-y-2">
+                    <label class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                        <input type="checkbox" class="sub-check mt-1 rounded text-blue-600 focus:ring-blue-500" onchange="updateProgress()">
+                        <div class="text-xs">
+                            <span class="font-bold text-slate-800 block text-sm">Sensory & Imagery Enhancement</span>
+                            I replaced at least 3 vague or "telling" sentences with vivid, sensory descriptions that appeal to sight, sound, or touch.
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                        <input type="checkbox" class="sub-check mt-1 rounded text-blue-600 focus:ring-blue-500" onchange="updateProgress()">
+                        <div class="text-xs">
+                            <span class="font-bold text-slate-800 block text-sm">Dialogue Formatting & Rules</span>
+                            My narrative contains properly punctuated dialogue with quotation marks, commas inside quotes, and a new paragraph for each new speaker.
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                        <input type="checkbox" class="sub-check mt-1 rounded text-blue-600 focus:ring-blue-500" onchange="updateProgress()">
+                        <div class="text-xs">
+                            <span class="font-bold text-slate-800 block text-sm">Narrative Flow & Resolution (9-10.W.3)</span>
+                            My story flows logically through a sequence of events and leads to a clear, meaningful resolution.
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Completion Tracker Bar -->
+            <div class="bg-slate-100 p-4 rounded-xl space-y-2">
+                <div class="flex justify-between text-xs font-bold text-slate-600">
+                    <span>Submission Readiness Progress</span>
+                    <span id="progressText">0% Completed</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                    <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-emerald-500 h-3 w-0 transition-all duration-500"></div>
+                </div>
+            </div>
+
+            <!-- Canvas Instructions Callout Box -->
+            <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl space-y-2">
+                <div class="flex items-center gap-2 text-amber-800 font-bold text-sm">
+                    <i class="fas fa-circle-info"></i> Canvas Submission Instructions
+                </div>
+                <ol class="list-decimal list-inside text-xs text-amber-900 space-y-1">
+                    <li>Return to the main Canvas Assignment submission window above/below this embed.</li>
+                    <li>Click the <strong>Submit Assignment</strong> button in Canvas.</li>
+                    <li>Attach your revised Google Doc link or upload your completed document file (.docx / .pdf).</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactivity -->
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all tab content
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            // Deactivate all tab buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab content and set button as active
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            // Scroll smoothly to top of module container
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle Showing vs Telling Details
+        function toggleShow(elementId, btn) {
+            const el = document.getElementById(elementId);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                btn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Showing';
+                btn.classList.replace('bg-purple-100', 'bg-slate-200');
+                btn.classList.replace('text-purple-700', 'text-slate-700');
+            } else {
+                el.classList.add('hidden');
+                btn.innerHTML = '<i class="fas fa-sparkles"></i> Reveal "Showing" Revision';
+                btn.classList.replace('bg-slate-200', 'bg-purple-100');
+                btn.classList.replace('text-slate-700', 'text-purple-700');
+            }
+        }
+
+        // Chunk 1 Knowledge Check
+        function checkQuiz1(btn, isCorrect) {
+            const feedback = document.getElementById('quiz1-feedback');
+            feedback.classList.remove('hidden', 'text-emerald-600', 'text-red-500');
+
+            if (isCorrect) {
+                feedback.innerHTML = '<i class="fas fa-circle-check"></i> Correct! Option B uses sensory words like "groaned", "rotting", "sweet smell", and "mildew".';
+                feedback.classList.add('text-emerald-600');
+            } else {
+                feedback.innerHTML = '<i class="fas fa-circle-xmark"></i> Not quite. That option tells the reader how to feel instead of using sensory details. Try again!';
+                feedback.classList.add('text-red-500');
+            }
+        }
+
+        // Dialogue Quiz Check
+        function checkDialogueQuiz() {
+            const selected = document.querySelector('input[name="dialogueQuiz"]:checked');
+            const err1 = document.getElementById('diag-err1');
+            const corr = document.getElementById('diag-corr');
+
+            err1.classList.add('hidden');
+            corr.classList.add('hidden');
+
+            if (!selected) {
+                alert('Please select an option first!');
+                return;
+            }
+
+            if (selected.value === 'B') {
+                corr.classList.remove('hidden');
+            } else {
+                err1.classList.remove('hidden');
+            }
+        }
+
+        // Copy Text Function
+        function copyRevision() {
+            const revisedText = document.getElementById('revisedText').value;
+            if (!revisedText.trim()) {
+                alert('Please type or revise a paragraph in the "Revised Paragraph" box first.');
+                return;
+            }
+
+            // Clipboard copy fall-back for iframe compatibility
+            const tempInput = document.createElement('textarea');
+            tempInput.value = revisedText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            alert('Revised paragraph copied to clipboard! You can now paste it into your story draft.');
+        }
+
+        // Submission Readiness Progress Bar
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.sub-check');
+            let checkedCount = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) checkedCount++;
+            });
+
+            const percentage = Math.round((checkedCount / checkboxes.length) * 100);
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').innerText = percentage + '% Completed';
+        }
+    </script>
+</body>
+</html>
